@@ -1,4 +1,4 @@
-# Robot Framework + Selenium Test Automation — SauceDemo
+# Robot Framework Test Automation — UI (SauceDemo) & API (Restful-Booker)
 
 Test automation framework built with Robot Framework and Python — UI testing for [saucedemo.com](https://www.saucedemo.com/) with SeleniumLibrary, and API testing for [Restful-Booker](https://restful-booker.herokuapp.com/) with RequestsLibrary.
 
@@ -8,27 +8,30 @@ Test automation framework built with Robot Framework and Python — UI testing f
 - Robot Framework 7.4.2
 - SeleniumLibrary 6.9.0 (Selenium 4.48.0)
 - VS Code + RobotCode extension
+- RequestsLibrary 0.9.7 (API testing)
 
 ## Project Structure
+```
 ├── resources/
-│ ├── common/
-│ │ └── browser_setup.resource # Browser open/close keywords
-│ ├── pages/
-│ │ ├── login_page.resource # Login page locators & keywords
-│ │ ├── inventory_page.resource # Product listing & cart keywords
-│ │ └── checkout_page.resource # Checkout flow keywords
-│ └── libraries/
-│ └── price_utils.py # Custom Python keyword (price validation)
+│   ├── common/
+│   │   └── browser_setup.resource    # Browser open/close keywords
+│   ├── pages/
+│   │   ├── login_page.resource       # Login page locators & keywords
+│   │   ├── inventory_page.resource   # Product listing & cart keywords
+│   │   └── checkout_page.resource    # Checkout flow keywords
+│   ├── libraries/
+│   │   └── price_utils.py            # Custom Python keyword (price validation)
+│   └── api/
+│       └── restful_booker_setup.resource   # API session, auth & CRUD keywords
 ├── tests/
-│ ├── smoke_test.robot
-│ ├── login_tests.robot
-│ ├── cart_tests.robot
-│ ├── checkout_tests.robot
-│ └── checkout_data_driven_tests.robot
-├── results/ # Generated reports (gitignored)
-└── requirements.txt
-
-
+│   ├── smoke_test.robot
+│   ├── login_tests.robot
+│   ├── cart_tests.robot
+│   ├── checkout_tests.robot
+│   ├── checkout_data_driven_tests.robot
+│   └── api/
+│       └── restful_booker_tests.robot      # API CRUD + auth tests
+```
 ## Setup
 
 ```bash
@@ -62,6 +65,7 @@ Run by tag:
 robot --outputdir results --include smoke tests/        # Smoke suite only
 robot --outputdir results --include regression tests/   # Regression suite only
 robot --outputdir results --include login tests/         # Feature-specific
+robot --outputdir results --include api tests/                # API tests only
 ```
 
 Run a single test case:
@@ -78,8 +82,9 @@ robot --outputdir results --test "Valid Login Should Succeed" tests/
 | Cart | 4 | Add/remove items, cart badge count, cart navigation |
 | Checkout | 5 | Full checkout flow, field validation, price total verification |
 | Checkout (data-driven) | 4 | Checkout with multiple valid input combinations |
+| API (Restful-Booker) | 4 | Create, read, update, delete booking + token authentication |
 
-**Total: 18 test cases**
+**Total: 22 test cases**
 
 ## Reports
 
