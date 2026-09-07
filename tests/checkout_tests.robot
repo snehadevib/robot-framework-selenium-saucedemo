@@ -21,8 +21,7 @@ Login Add Item And Go To Cart
     Login As    ${VALID_USERNAME}    ${VALID_PASSWORD}
     Add Item To Cart    ${BACKPACK_ID}
     Click Cart Icon
-
-
+    
 *** Test Cases ***
 Complete Checkout With Valid Information
     [Tags]    TC_010    smoke    checkout
