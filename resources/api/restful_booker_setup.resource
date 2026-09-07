@@ -23,8 +23,8 @@ Create A New Booking
     RETURN    ${response}
 
 Get Booking By Id
-    [Arguments]    ${booking_id}
-    ${response}=    GET On Session    booker    /booking/${booking_id}
+    [Arguments]    ${booking_id}    ${expected_status}=200
+    ${response}=    GET On Session    booker    /booking/${booking_id}    expected_status=${expected_status}
     RETURN    ${response}
 
 Authenticate And Get Token
@@ -44,3 +44,10 @@ Update Booking
     ${headers}=    Create Dictionary    Cookie=token=${token}
     ${response}=    PUT On Session    booker    /booking/${booking_id}    json=${booking_data}    headers=${headers}
     RETURN    ${response}    
+
+Delete Booking
+    [Arguments]    ${booking_id}    ${token}
+    ${headers}=    Create Dictionary    Cookie=token=${token}
+    ${response}=    DELETE On Session    booker    /booking/${booking_id}    headers=${headers}
+    RETURN    ${response}
+

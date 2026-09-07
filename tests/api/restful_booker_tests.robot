@@ -30,3 +30,13 @@ Update Booking Should Change Booking Details
     Status Should Be    200    ${update_response}
     Should Be Equal As Strings    ${update_response.json()}[lastname]    Johnson
 
+Delete Booking Should Remove It Permanently
+    [Tags]    TC_API_004    api    regression
+    ${create_response}=    Create A New Booking    Bob    Wilson    80    ${False}    2026-06-01    2026-06-03
+    ${booking_id}=    Set Variable    ${create_response.json()}[bookingid]
+    ${token}=    Authenticate And Get Token
+    ${delete_response}=    Delete Booking    ${booking_id}    ${token}
+    Status Should Be    201    ${delete_response}
+    ${get_response}=    Get Booking By Id    ${booking_id}    expected_status=404
+    Status Should Be    404    ${get_response}
+    
