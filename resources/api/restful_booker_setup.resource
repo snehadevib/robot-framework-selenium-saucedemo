@@ -21,3 +21,9 @@ Create A New Booking
     ...    additionalneeds=Breakfast
     ${response}=    POST On Session    booker    /booking    json=${booking_data}
     RETURN    ${response}
+
+Get Booking By Id
+    [Arguments]    ${booking_id}
+    ${response}=    GET On Session    booker    /booking/${booking_id}
+    RETURN    ${response}
+
