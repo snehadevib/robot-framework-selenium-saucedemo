@@ -1,6 +1,6 @@
 # Robot Framework + Selenium Test Automation — SauceDemo
 
-Test automation framework for [saucedemo.com](https://www.saucedemo.com/), built with Robot Framework, SeleniumLibrary, and Python.
+Test automation framework built with Robot Framework and Python — UI testing for [saucedemo.com](https://www.saucedemo.com/) with SeleniumLibrary, and API testing for [Restful-Booker](https://restful-booker.herokuapp.com/) with RequestsLibrary.
 
 ## Tech Stack
 
