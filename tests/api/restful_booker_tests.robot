@@ -20,3 +20,13 @@ Get Booking Should Return Correct Details
     Status Should Be    200    ${get_response}
     Should Be Equal As Strings    ${get_response.json()}[firstname]    Jane
     Should Be Equal As Strings    ${get_response.json()}[lastname]    Smith
+
+Update Booking Should Change Booking Details
+    [Tags]    TC_API_003    api    regression
+    ${create_response}=    Create A New Booking    Alice    Brown    100    ${True}    2026-05-01    2026-05-05
+    ${booking_id}=    Set Variable    ${create_response.json()}[bookingid]
+    ${token}=    Authenticate And Get Token
+    ${update_response}=    Update Booking    ${booking_id}    ${token}    Alice    Johnson    120    ${True}    2026-05-01    2026-05-06
+    Status Should Be    200    ${update_response}
+    Should Be Equal As Strings    ${update_response.json()}[lastname]    Johnson
+

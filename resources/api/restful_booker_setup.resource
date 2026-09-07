@@ -27,3 +27,20 @@ Get Booking By Id
     ${response}=    GET On Session    booker    /booking/${booking_id}
     RETURN    ${response}
 
+Authenticate And Get Token
+    ${credentials}=    Create Dictionary    username=admin    password=password123
+    ${response}=    POST On Session    booker    /auth    json=${credentials}
+    RETURN    ${response.json()}[token]
+
+Update Booking
+    [Arguments]    ${booking_id}    ${token}    ${first_name}    ${last_name}    ${total_price}    ${deposit_paid}    ${checkin}    ${checkout}
+    ${booking_data}=    Create Dictionary
+    ...    firstname=${first_name}
+    ...    lastname=${last_name}
+    ...    totalprice=${total_price}
+    ...    depositpaid=${deposit_paid}
+    ...    bookingdates=${{ {"checkin": "${checkin}", "checkout": "${checkout}"} }}
+    ...    additionalneeds=Breakfast
+    ${headers}=    Create Dictionary    Cookie=token=${token}
+    ${response}=    PUT On Session    booker    /booking/${booking_id}    json=${booking_data}    headers=${headers}
+    RETURN    ${response}    
