@@ -1,5 +1,7 @@
 *** Settings ***
 Library    SeleniumLibrary
+Library    Collections
+Library    ../libraries/price_utils.py
 
 
 *** Variables ***
@@ -13,6 +15,8 @@ ${FINISH_BUTTON}           id:finish
 ${ORDER_TOTAL}             class:summary_total_label
 ${CONFIRMATION_HEADER}     class:complete-header
 ${BACK_HOME_BUTTON}        id:back-to-products
+
+${ITEM_TOTAL_LABEL}        class:summary_subtotal_label
 
 
 *** Keywords ***
@@ -47,3 +51,13 @@ Complete Checkout
     Order Total Should Be Visible
     Click Finish
     Order Confirmation Should Be Displayed
+
+Verify Cart Total Matches Item Prices
+    @{item_prices}=    Get WebElements    class:inventory_item_price
+    @{price_texts}=    Create List
+    FOR    ${element}    IN    @{item_prices}
+        ${text}=    Get Text    ${element}
+        Append To List    ${price_texts}    ${text}
+    END
+    ${subtotal_text}=    Get Text    ${ITEM_TOTAL_LABEL}
+    Sum Prices Matches Total    ${price_texts}    ${subtotal_text}

@@ -52,3 +52,11 @@ Back Home Button Should Return To Inventory Page
     Complete Checkout    Jane    Smith    54321
     Click Element    ${BACK_HOME_BUTTON}
     Inventory Page Should Be Displayed
+
+Cart Total Should Equal Sum Of Item Prices
+    [Tags]    TC_014    regression    checkout
+    Click Checkout
+    Fill Checkout Information    John    Doe    12345
+    Click Continue
+    Wait Until Page Contains Element    ${ORDER_TOTAL}    timeout=5s
+    Verify Cart Total Matches Item Prices
